@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/static/css/main.2a5b250c.css",
-    "main.js": "/static/js/main.e5906aa5.js",
-    "static/media/hero.jpg": "/static/media/hero.f621aedd139c4b185796.jpg",
-    "static/media/sleza.jpg": "/static/media/sleza.233378df809cc6f70827.jpg",
-    "static/media/karpacz.jpg": "/static/media/karpacz.23f30a1806eb3923b931.jpg",
-    "static/media/morskieoko.jpg": "/static/media/morskieoko.e37b57bb06354162e435.jpg",
-    "static/media/zakopane.jpg": "/static/media/zakopane.590fb0a16c5f26940354.jpg",
-    "index.html": "/index.html",
-    "main.2a5b250c.css.map": "/static/css/main.2a5b250c.css.map",
-    "main.e5906aa5.js.map": "/static/js/main.e5906aa5.js.map"
+    "main.css": "/ztravel/static/css/main.2a5b250c.css",
+    "main.js": "/ztravel/static/js/main.fad657fa.js",
+    "static/media/hero.jpg": "/ztravel/static/media/hero.f621aedd139c4b185796.jpg",
+    "static/media/sleza.jpg": "/ztravel/static/media/sleza.233378df809cc6f70827.jpg",
+    "static/media/karpacz.jpg": "/ztravel/static/media/karpacz.23f30a1806eb3923b931.jpg",
+    "static/media/morskieoko.jpg": "/ztravel/static/media/morskieoko.e37b57bb06354162e435.jpg",
+    "static/media/zakopane.jpg": "/ztravel/static/media/zakopane.590fb0a16c5f26940354.jpg",
+    "index.html": "/ztravel/index.html",
+    "main.2a5b250c.css.map": "/ztravel/static/css/main.2a5b250c.css.map",
+    "main.fad657fa.js.map": "/ztravel/static/js/main.fad657fa.js.map"
   },
   "entrypoints": [
     "static/css/main.2a5b250c.css",
-    "static/js/main.e5906aa5.js"
+    "static/js/main.fad657fa.js"
   ]
 }
