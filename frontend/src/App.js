@@ -3,9 +3,6 @@ import Home from "./routes/Home";
 import Booking from "./routes/Booking";
 
 const App = () => {
-  fetch("/users")
-    .then((response) => response.text())
-    .then((data) => console.log({ data }));
   return (
     <Router basename={process.env.PUBLIC_URL}>
       <Routes>

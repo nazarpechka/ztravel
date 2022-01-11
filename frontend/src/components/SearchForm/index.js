@@ -1,15 +1,7 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import Input from "./SearchInput";
 import Select from "./SearchSelect";
 import Button from "../Button";
-
-const tours = {
-  winter: "Zakopane in Winter",
-  thermal: "Thermal Baths in Zakopane",
-  lake: "Morskie Oko",
-  karpacz: "Mountain Hiking in Karpacz",
-};
 
 const icons = {
   tour: (
@@ -72,6 +64,18 @@ const SearchForm = () => {
     guests: 1,
   });
 
+  const [tours, setTours] = useState({});
+
+  useEffect(() => {
+    const fetchTours = async () => {
+      const data = await fetch("/tours");
+      const json = await data.json();
+      setTours(json.tours);
+    };
+
+    fetchTours();
+  }, []);
+
   const onChange = (e) => {
     const target = e.target;
     setInfo({
@@ -83,7 +87,7 @@ const SearchForm = () => {
   return (
     <div className="container mx-auto w-full rounded-md p-8 mb-4 bg-white bg-opacity-5 backdrop-blur-2xl">
       <h3 className="text-lg font-bold mb-2">Book your vacation</h3>
-      <form>
+      <form action="/booking">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="flex flex-col md:flex-row">
             <Select
@@ -121,9 +125,7 @@ const SearchForm = () => {
               onChange={onChange}
             />
           </div>
-          <Link to="/booking">
-            <Button label="Search" />
-          </Link>
+          <Button label="Search" type="submit" />
         </div>
       </form>
     </div>
