@@ -34,5 +34,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.4.0",
+    "autoprefixer": "^10.4.2",
+    "postcss": "^8.4.5",
+    "react-router-dom": "^6.2.1",
+    "tailwindscss": "^0.3.0"
   }
 }
