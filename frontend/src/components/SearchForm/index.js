@@ -64,7 +64,7 @@ const SearchForm = () => {
     guests: 1,
   });
 
-  const [tours, setTours] = useState({});
+  const [tours, setTours] = useState(["Loading"]);
 
   useEffect(() => {
     const fetchTours = async () => {

@@ -5,8 +5,9 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 
 const BookingForm = () => {
+  // eslint-disable-next-line no-unused-vars
   const [searchParams, setSearchParams] = useSearchParams();
-  const [tours, setTours] = useState({});
+  const [tours, setTours] = useState(["Loading"]);
 
   useEffect(() => {
     const fetchTours = async () => {
