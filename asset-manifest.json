@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/ztravel/static/css/main.2a5b250c.css",
-    "main.js": "/ztravel/static/js/main.fad657fa.js",
+    "main.css": "/ztravel/static/css/main.6d8ad3c2.css",
+    "main.js": "/ztravel/static/js/main.6f3843e8.js",
     "static/media/hero.jpg": "/ztravel/static/media/hero.f621aedd139c4b185796.jpg",
     "static/media/sleza.jpg": "/ztravel/static/media/sleza.233378df809cc6f70827.jpg",
     "static/media/karpacz.jpg": "/ztravel/static/media/karpacz.23f30a1806eb3923b931.jpg",
     "static/media/morskieoko.jpg": "/ztravel/static/media/morskieoko.e37b57bb06354162e435.jpg",
     "static/media/zakopane.jpg": "/ztravel/static/media/zakopane.590fb0a16c5f26940354.jpg",
     "index.html": "/ztravel/index.html",
-    "main.2a5b250c.css.map": "/ztravel/static/css/main.2a5b250c.css.map",
-    "main.fad657fa.js.map": "/ztravel/static/js/main.fad657fa.js.map"
+    "main.6d8ad3c2.css.map": "/ztravel/static/css/main.6d8ad3c2.css.map",
+    "main.6f3843e8.js.map": "/ztravel/static/js/main.6f3843e8.js.map"
   },
   "entrypoints": [
-    "static/css/main.2a5b250c.css",
-    "static/js/main.fad657fa.js"
+    "static/css/main.6d8ad3c2.css",
+    "static/js/main.6f3843e8.js"
   ]
 }
