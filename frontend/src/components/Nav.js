@@ -1,5 +1,20 @@
 import { NavLink } from "react-router-dom";
 
+const links = [
+  {
+    to: "/",
+    label: "Home",
+  },
+  {
+    to: "/booking",
+    label: "Booking",
+  },
+  {
+    to: "/shop",
+    label: "Shop",
+  },
+];
+
 const Nav = () => {
   return (
     <nav>
@@ -8,15 +23,11 @@ const Nav = () => {
           <NavLink to="/">Zakopane Travel</NavLink>
         </h1>
         <ul className="flex gap-6 font-light">
-          <li>
-            <NavLink to="/">Home</NavLink>
-          </li>
-          <li>
-            <NavLink to="/booking">Booking</NavLink>
-          </li>
-          <li>
-            <NavLink to="/shop">Shop</NavLink>
-          </li>
+          {links.map(({ to, label }) => (
+            <li className="cursor-pointer">
+              <NavLink to={to}>{label}</NavLink>
+            </li>
+          ))}
         </ul>
       </div>
     </nav>
