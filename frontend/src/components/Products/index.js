@@ -19,19 +19,13 @@ const Products = () => {
   };
 
   useEffect(fetchProducts, []);
-  console.log(products);
 
   return (
-    <Section heading="Products">
+    <Section heading="Souvenirs Shop">
       {products.length ? (
-        <div className="flex flex-col md:flex-row gap-8">
-          {products.map(({ _id, name, price, imageName }) => (
-            <ProductCard
-              key={_id}
-              img={require(`../assets/${imageName}.jpg`)}
-              name={name}
-              price={price}
-            />
+        <div className="grid grid-cols-4 gap-8">
+          {products.map((product) => (
+            <ProductCard key={product._id} product={product} />
           ))}
         </div>
       ) : (

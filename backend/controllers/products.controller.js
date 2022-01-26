@@ -20,4 +20,34 @@ module.exports = {
       return res.send(product);
     });
   },
+
+  getProduct: (req, res) => {
+    Product.findById(req.params.id, (err, product) => {
+      if (err) {
+        return res.status(500).send(err);
+      }
+
+      if (!product) {
+        return res.status(404);
+      }
+
+      return res.send(product);
+    });
+  },
+
+  replaceProduct: (req, res) => {
+    console.log(req.body);
+    Product.findOneAndReplace(
+      { _id: req.params.id },
+      req.body,
+      null,
+      (err, product) => {
+        if (err) {
+          return res.status(500).send(err);
+        }
+
+        return res.send(product);
+      }
+    );
+  },
 };
