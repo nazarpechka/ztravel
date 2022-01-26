@@ -1,9 +1,11 @@
-var express = require('express');
-var router = express.Router();
+const bookings = require("./bookings");
+const contacts = require("./contacts");
+const tours = require("./tours");
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+module.exports = (router) => {
+  bookings(router);
+  contacts(router);
+  tours(router);
 
-module.exports = router;
+  return router;
+};

@@ -69,7 +69,7 @@ const SearchForm = () => {
 
   useEffect(() => {
     axios
-      .get("/tours")
+      .get("/api/tours")
       .then(({ data }) => {
         setTours(data);
       })

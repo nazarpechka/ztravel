@@ -1,6 +1,3 @@
-var express = require("express");
-var router = express.Router();
-
 const tours = [
   {
     name: "winter",
@@ -20,8 +17,8 @@ const tours = [
   },
 ];
 
-router.get("/", (req, res, next) => {
-  res.send(tours);
-});
-
-module.exports = router;
+module.exports = (router) => {
+  router.get("/tours", (req, res, next) => {
+    res.send(tours);
+  });
+};

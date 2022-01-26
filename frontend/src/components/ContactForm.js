@@ -26,22 +26,22 @@ const ContactForm = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const error = document.querySelector("#error");
-    const success = document.querySelector("#success");
+    const error = document.querySelector("#contact-error");
+    console.log(error);
+    const success = document.querySelector("#contact-success");
 
     axios
-      .post("/contacts", info)
+      .post("/api/contacts", info)
       .then(() => {
         error.textContent = "";
         success.textContent = "We will reach you soon!";
       })
       .catch((err) => {
+        console.log("got error");
         success.textContent = "";
-        if (err.response) {
-          error.textContent = err.response.data.message;
-        } else {
-          error.textContent = err.message;
-        }
+        error.textContent = err.response
+          ? err.response.data.message
+          : err.message;
       });
   };
 
@@ -84,8 +84,11 @@ const ContactForm = () => {
         ></textarea>
 
         <div className="text-center mt-4 ">
-          <span className="block text-red-500 mb-4" id="error"></span>
-          <span className="block text-green-500 mb-4" id="success"></span>
+          <span className="block text-red-500 mb-4" id="contact-error"></span>
+          <span
+            className="block text-green-500 mb-4"
+            id="contact-success"
+          ></span>
           <Button label="Submit" type="submit" />
         </div>
       </form>

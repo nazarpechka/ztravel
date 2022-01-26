@@ -13,7 +13,7 @@ const BookingForm = () => {
 
   useEffect(() => {
     axios
-      .get("/tours")
+      .get("/api/tours")
       .then(({ data }) => {
         setTours(data);
       })
@@ -53,22 +53,20 @@ const BookingForm = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const error = document.querySelector("#error");
-    const success = document.querySelector("#success");
+    const error = document.querySelector("#booking-error");
+    const success = document.querySelector("#booking-success");
 
     axios
-      .post("/bookings", info)
+      .post("/api/bookings", info)
       .then(() => {
         error.textContent = "";
         success.textContent = "Booking confirmed!";
       })
       .catch((err) => {
         success.textContent = "";
-        if (err.response) {
-          error.textContent = err.response.data.message;
-        } else {
-          error.textContent = err.message;
-        }
+        error.textContent = err.response
+          ? err.response.data.message
+          : err.message;
       });
   };
 
@@ -150,8 +148,8 @@ const BookingForm = () => {
         ></textarea>
 
         <div className="text-center mt-4 ">
-          <span className="block text-red-500" id="error"></span>
-          <span className="block text-green-500" id="success"></span>
+          <span className="block text-red-500" id="booking-error"></span>
+          <span className="block text-green-500" id="booking-success"></span>
           <Button label="Submit" type="submit" />
         </div>
       </form>
