@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 
 import Input from "./Input";
 import Button from "./Button";
@@ -25,23 +26,23 @@ const ContactForm = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const data = await fetch("/contacts", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(info),
-    });
-    const json = await data.json();
-
     const error = document.querySelector("#error");
-    if (json.statusCode !== 200) {
-      error.textContent = json.error;
-    } else {
-      const success = document.querySelector("#success");
-      error.textContent = "";
-      success.textContent = "We will reach you soon!";
-    }
+    const success = document.querySelector("#success");
+
+    axios
+      .post("/contacts", info)
+      .then(() => {
+        error.textContent = "";
+        success.textContent = "We will reach you soon!";
+      })
+      .catch((err) => {
+        success.textContent = "";
+        if (err.response) {
+          error.textContent = err.response.data.message;
+        } else {
+          error.textContent = err.message;
+        }
+      });
   };
 
   return (
@@ -83,8 +84,8 @@ const ContactForm = () => {
         ></textarea>
 
         <div className="text-center mt-4 ">
-          <span className="block text-red-500" id="error"></span>
-          <span className="block text-green-500" id="success"></span>
+          <span className="block text-red-500 mb-4" id="error"></span>
+          <span className="block text-green-500 mb-4" id="success"></span>
           <Button label="Submit" type="submit" />
         </div>
       </form>

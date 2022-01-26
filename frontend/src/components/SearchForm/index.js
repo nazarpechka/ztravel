@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
 import Input from "./SearchInput";
 import Select from "./SearchSelect";
 import Button from "../Button";
@@ -64,16 +65,17 @@ const SearchForm = () => {
     guests: 1,
   });
 
-  const [tours, setTours] = useState(["Loading"]);
+  const [tours, setTours] = useState([{ label: "Loading" }]);
 
   useEffect(() => {
-    const fetchTours = async () => {
-      const data = await fetch("/tours");
-      const json = await data.json();
-      setTours(json.tours);
-    };
-
-    fetchTours();
+    axios
+      .get("/tours")
+      .then(({ data }) => {
+        setTours(data);
+      })
+      .catch(() => {
+        setTours([{ label: "Error loading tours" }]);
+      });
   }, []);
 
   const onChange = (e) => {

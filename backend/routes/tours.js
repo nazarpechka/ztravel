@@ -1,15 +1,27 @@
 var express = require("express");
 var router = express.Router();
 
-const tours = {
-  winter: "Zakopane in Winter",
-  thermal: "Thermal Baths in Zakopane",
-  lake: "Morskie Oko",
-  karpacz: "Mountain Hiking in Karpacz",
-};
+const tours = [
+  {
+    name: "winter",
+    label: "Zakopane in Winter",
+  },
+  {
+    name: "thermal",
+    label: "Thermal Baths in Zakopane",
+  },
+  {
+    name: "lake",
+    label: "Morskie Oko",
+  },
+  {
+    name: "karpacz",
+    label: "Mountain Hiking in Karpacz",
+  },
+];
 
 router.get("/", (req, res, next) => {
-  res.json({ statusCode: 200, tours });
+  res.send(tours);
 });
 
 module.exports = router;

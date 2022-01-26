@@ -1,0 +1,29 @@
+{
+  "name": "ztravel",
+  "version": "1.0.0",
+  "description": "Travel agency web page",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix backend\" \"npm start --prefix frontend\"",
+    "start": "cd backend && npm install && npm start",
+    "build": "cd frontend && npm install && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nazarpechka/ztravel.git"
+  },
+  "author": "Nazar Pechevystyi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nazarpechka/ztravel/issues"
+  },
+  "homepage": "https://github.com/nazarpechka/ztravel#readme",
+  "dependencies": {
+    "concurrently": "^7.0.0",
+    "eslint": "^8.7.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.28.0",
+    "prettier": "^2.5.1"
+  }
+}

@@ -1,22 +1,25 @@
+import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
+import axios from "axios";
+
 import Input from "./Input";
 import Select from "./Select";
 import Button from "./Button";
-import { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
 
 const BookingForm = () => {
   // eslint-disable-next-line no-unused-vars
   const [searchParams, setSearchParams] = useSearchParams();
-  const [tours, setTours] = useState(["Loading"]);
+  const [tours, setTours] = useState([{ label: "Loading" }]);
 
   useEffect(() => {
-    const fetchTours = async () => {
-      const data = await fetch("/tours");
-      const json = await data.json();
-      setTours(json.tours);
-    };
-
-    fetchTours();
+    axios
+      .get("/tours")
+      .then(({ data }) => {
+        setTours(data);
+      })
+      .catch(() => {
+        setTours([{ label: "Error loading tours" }]);
+      });
   }, []);
 
   const [info, setInfo] = useState({
@@ -50,23 +53,23 @@ const BookingForm = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const data = await fetch("/bookings", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(info),
-    });
-    const json = await data.json();
-
     const error = document.querySelector("#error");
-    if (json.statusCode !== 200) {
-      error.textContent = json.error;
-    } else {
-      const success = document.querySelector("#success");
-      error.textContent = "";
-      success.textContent = "Booking confirmed!";
-    }
+    const success = document.querySelector("#success");
+
+    axios
+      .post("/bookings", info)
+      .then(() => {
+        error.textContent = "";
+        success.textContent = "Booking confirmed!";
+      })
+      .catch((err) => {
+        success.textContent = "";
+        if (err.response) {
+          error.textContent = err.response.data.message;
+        } else {
+          error.textContent = err.message;
+        }
+      });
   };
 
   return (

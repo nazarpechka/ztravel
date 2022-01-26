@@ -3,18 +3,14 @@ var router = express.Router();
 
 const requiredProps = ["name", "email", "phone", "message"];
 
-router.post("/", (req, res, next) => {
+router.post("/", (req, res) => {
   for (const prop of requiredProps) {
     if (!req.body[prop]) {
-      res.json({
-        statusCode: 400,
-        error: `You should provide a ${prop} value`,
-      });
+      res.status(400).send({ message: `You should provide a ${prop} value` });
       return;
     } else if (req.body[prop].length < 3 || req.body[prop].length > 30) {
-      res.json({
-        statusCode: 400,
-        error: `${prop} should be between 3 and 30 characters`,
+      res.status(400).send({
+        message: `${prop} should be between 3 and 30 characters`,
       });
       return;
     }
@@ -22,19 +18,17 @@ router.post("/", (req, res, next) => {
 
   let { name, email, phone, message } = req.body;
 
-  if (!email.includes("@")) {
-    res.json({
-      statusCode: 400,
-      error: "Incorrect email",
+  const emailRegex = /\S+@\S+\.\S+/;
+  if (!emailRegex.test(email)) {
+    return res.status(400).send({
+      message: "Incorrect email",
     });
-    return;
   }
 
   const phoneRegex = /^[0-9]*$/;
   if (!phoneRegex.test(phone)) {
-    res.json({
-      statusCode: 400,
-      error: "Incorrect phone",
+    res.status(400).send({
+      message: "Incorrect phone",
     });
     return;
   }
@@ -42,7 +36,7 @@ router.post("/", (req, res, next) => {
   console.log("Accepted contact");
   console.log(req.body);
 
-  res.json({ statusCode: 200 });
+  res.send();
 });
 
 module.exports = router;

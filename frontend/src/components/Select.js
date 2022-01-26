@@ -12,9 +12,9 @@ const Select = ({ label, name, options, value, onChange }) => {
         onChange={onChange}
         required
       >
-        {Object.entries(options).map(([key, val]) => (
-          <option value={key} key={key}>
-            {val}
+        {options.map(({ name, label }) => (
+          <option value={name} key={name ? name : "dummy"}>
+            {label}
           </option>
         ))}
       </select>
