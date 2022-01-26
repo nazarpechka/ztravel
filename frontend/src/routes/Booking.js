@@ -10,8 +10,8 @@ const Booking = () => {
     <main>
       <Hero
         img={img}
-        heading="Beautiful Places of Zakopane"
-        subheading="Discover amazing mountain nature and fun experiences"
+        heading="Book the trip of your dream"
+        subheading="We are available in both winter and summer"
       />
       <BookingForm />
       <VideoSection />

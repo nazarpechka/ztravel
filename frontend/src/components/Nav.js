@@ -1,24 +1,21 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Nav = () => {
   return (
     <nav>
       <div className="container flex m-auto justify-between py-8 border-b border-white border-opacity-25">
-        <h1 className="font-bold">
-          <Link to="/">Zakopane Travel</Link>
+        <h1 className="font-bold text-lg">
+          <NavLink to="/">Zakopane Travel</NavLink>
         </h1>
         <ul className="flex gap-6 font-light">
           <li>
-            <Link to="/">Home</Link>
+            <NavLink to="/">Home</NavLink>
           </li>
           <li>
-            <Link to="/booking">Booking</Link>
+            <NavLink to="/booking">Booking</NavLink>
           </li>
           <li>
-            <Link to="/">Sign in</Link>
-          </li>
-          <li>
-            <Link to="/">Sign up</Link>
+            <NavLink to="/shop">Shop</NavLink>
           </li>
         </ul>
       </div>
