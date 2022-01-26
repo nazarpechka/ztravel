@@ -1,4 +1,5 @@
 import Hero from "../components/Hero";
+import Products from "../components/Products";
 import Footer from "../components/Footer";
 import img from "./assets/hero.jpg";
 
@@ -10,6 +11,7 @@ const Shop = () => {
         heading="Zakopane Travel Shop"
         subheading="Order a part of the mountains beauty"
       />
+      <Products />
       <Footer />
     </main>
   );
