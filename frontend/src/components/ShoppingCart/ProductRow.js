@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addToCart, removeFromCart } from "../../actions/cart";
 
@@ -33,48 +31,39 @@ const plus = (
   </svg>
 );
 
-const ProductRow = ({ productId, quantity }) => {
-  const [product, setProduct] = useState();
+const ProductRow = ({ product }) => {
   const dispatcher = useDispatch();
-
-  const fetchProduct = () => {
-    axios
-      .get(`/api/products/${productId}`)
-      .then(({ data }) => setProduct(data))
-      .catch((err) => console.err(err));
-  };
-
-  useEffect(fetchProduct, [productId]);
+  const { imageName, name, quantity, price, _id } = product;
 
   return product ? (
-    <div className="w-full grid grid-cols-4 items-center gap-6 py-5 text-lg">
-      <div className="flex gap-2">
+    <div className="grid grid-cols-4 items-center gap-6 py-5 text-lg">
+      <div className="flex gap-2 items-center">
         <img
-          src={require(`../assets/${product.imageName}.jpg`)}
-          alt={product.name}
+          src={require(`../assets/${imageName}.jpg`)}
+          alt={name}
           className="h-16"
         />
-        <span>{product.name}</span>
+        <span>{name}</span>
       </div>
 
       <div className="flex gap-2 items-center">
         <span
-          onClick={() => dispatcher(removeFromCart(productId))}
+          onClick={() => dispatcher(removeFromCart(_id))}
           className="transition hover:cursor-pointer hover:scale-105"
         >
           {minus}
         </span>
         <span>{quantity}</span>
         <span
-          onClick={() => dispatcher(addToCart(productId))}
+          onClick={() => dispatcher(addToCart(_id))}
           className="transition hover:cursor-pointer hover:scale-105"
         >
           {plus}
         </span>
       </div>
 
-      <span>{product.price + " PLN"}</span>
-      <span>{product.price * quantity + " PLN"} </span>
+      <span>{price + " PLN"}</span>
+      <span>{(price * quantity).toFixed(2) + " PLN"} </span>
     </div>
   ) : (
     <div>Loading...</div>

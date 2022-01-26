@@ -2,13 +2,15 @@ const Product = require("../models/product");
 
 module.exports = {
   getAllProducts: (req, res) => {
-    Product.find({}, (err, products) => {
-      if (err) {
-        return res.status(500).send(err);
-      }
+    Product.find({})
+      .populate("category")
+      .exec((err, products) => {
+        if (err) {
+          return res.status(500).send(err);
+        }
 
-      return res.send(products);
-    });
+        return res.send(products);
+      });
   },
 
   createProduct: (req, res) => {
@@ -28,7 +30,7 @@ module.exports = {
       }
 
       if (!product) {
-        return res.status(404);
+        return res.status(404).send({ message: "Category not found!" });
       }
 
       return res.send(product);
