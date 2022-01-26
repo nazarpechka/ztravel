@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const tourSchema = new mongoose.Schema({
+const productSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -12,6 +12,9 @@ const tourSchema = new mongoose.Schema({
     required: true,
     min: 1,
   },
+  imageName: {
+    type: String,
+  },
 });
 
-module.exports = mongoose.model("Tour", tourSchema);
+module.exports = mongoose.model("Product", productSchema);

@@ -86,12 +86,6 @@ const SearchForm = () => {
     });
   };
 
-  console.log(
-    tours.map(({ _id, name }) => {
-      return { key: _id, val: name };
-    })
-  );
-
   return (
     <div className="container mx-auto w-full rounded-md p-8 mb-4 bg-white bg-opacity-5 backdrop-blur-2xl">
       <h3 className="text-lg font-bold mb-2">Book your vacation</h3>
