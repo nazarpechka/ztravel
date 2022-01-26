@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 
+import Section from "./Section";
 import Input from "./Input";
 import Select from "./Select";
 import Button from "./Button";
@@ -71,9 +72,8 @@ const BookingForm = () => {
   };
 
   return (
-    <section className="container m-auto px-96 py-8">
-      <h3 className="text-4xl mb-8 text-center">Book a tour</h3>
-      <form className="w-full" onSubmit={onSubmit}>
+    <Section heading="Book a tour">
+      <form className="w-1/2" onSubmit={onSubmit}>
         <Input
           label="Name"
           name="name"
@@ -147,13 +147,13 @@ const BookingForm = () => {
           className="w-full my-4 focus:border-secondary focus:ring-secondary border border-gray-300 rounded-md"
         ></textarea>
 
-        <div className="text-center mt-4 ">
-          <span className="block text-red-500" id="booking-error"></span>
-          <span className="block text-green-500" id="booking-success"></span>
+        <div className="text-center">
+          <p className="text-red-500" id="booking-error"></p>
+          <p className="text-green-500" id="booking-success"></p>
           <Button label="Submit" type="submit" />
         </div>
       </form>
-    </section>
+    </Section>
   );
 };
 

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 
+import Section from "./Section";
 import Input from "./Input";
 import Button from "./Button";
 
@@ -46,9 +47,8 @@ const ContactForm = () => {
   };
 
   return (
-    <section className="container m-auto px-96 py-8">
-      <h3 className="text-4xl mb-8 text-center">Contact Us</h3>
-      <form className="w-full" onSubmit={onSubmit}>
+    <Section heading="Contact Us">
+      <form className="w-1/2" onSubmit={onSubmit}>
         <Input
           label="Name"
           name="name"
@@ -83,16 +83,13 @@ const ContactForm = () => {
           className="w-full my-4 focus:border-secondary focus:ring-secondary border border-gray-300 rounded-md"
         ></textarea>
 
-        <div className="text-center mt-4 ">
-          <span className="block text-red-500 mb-4" id="contact-error"></span>
-          <span
-            className="block text-green-500 mb-4"
-            id="contact-success"
-          ></span>
+        <div className="text-center">
+          <p className="text-red-500 mb-4" id="contact-error"></p>
+          <p className="text-green-500 mb-4" id="contact-success"></p>
           <Button label="Submit" type="submit" />
         </div>
       </form>
-    </section>
+    </Section>
   );
 };
 
