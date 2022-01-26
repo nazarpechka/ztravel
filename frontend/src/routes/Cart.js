@@ -2,7 +2,7 @@ import Hero from "../components/Hero";
 import ShoppingCart from "../components/ShoppingCart";
 import img from "./assets/hero.jpg";
 
-const Order = () => {
+const Cart = () => {
   return (
     <>
       <Hero
@@ -15,4 +15,4 @@ const Order = () => {
   );
 };
 
-export default Order;
+export default Cart;

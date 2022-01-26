@@ -24,7 +24,8 @@ const ProductCard = ({ product }) => {
 
   const dispatcher = useDispatch();
   const cart = useSelector((state) => state.cart);
-  const [addedToCart, setAddedToCart] = useState(_id in cart);
+  console.log(cart);
+  const [addedToCart, setAddedToCart] = useState(_id in cart.products);
 
   return (
     <div className="w-64 h-96 rounded-md shadow-lg overflow-hidden relative">

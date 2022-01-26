@@ -2,7 +2,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./routes/Home";
 import Booking from "./routes/Booking";
 import Shop from "./routes/Shop";
-import Order from "./routes/Order";
+import Cart from "./routes/Cart";
+import Checkout from "./routes/Checkout";
 import Footer from "./components/Footer";
 
 const App = () => {
@@ -17,7 +18,8 @@ const App = () => {
               <Route path=":category" element={<Shop />} />
               <Route path="" element={<Shop />} />
             </Route>
-            <Route path="/cart" element={<Order />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/checkout" element={<Checkout />} />
           </Routes>
         </main>
         <Footer />
