@@ -24,7 +24,7 @@ const Nav = () => {
         </h1>
         <ul className="flex gap-6 font-light">
           {links.map(({ to, label }) => (
-            <li className="cursor-pointer">
+            <li className="cursor-pointer" key={to}>
               <NavLink to={to}>{label}</NavLink>
             </li>
           ))}

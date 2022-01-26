@@ -1,7 +1,7 @@
 const requiredProps = ["name", "email", "phone", "message"];
 
-module.exports = (router) => {
-  router.post("/contacts", (req, res) => {
+module.exports = {
+  createContact: (req, res) => {
     for (const prop of requiredProps) {
       if (!req.body[prop]) {
         res.status(400).send({ message: `You should provide a ${prop} value` });
@@ -35,5 +35,5 @@ module.exports = (router) => {
     console.log(req.body);
 
     res.send();
-  });
+  },
 };

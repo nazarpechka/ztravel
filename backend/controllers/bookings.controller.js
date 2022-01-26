@@ -11,8 +11,8 @@ const requiredProps = [
 
 const tours = ["winter", "thermal", "lake", "karpacz"];
 
-module.exports = (router) => {
-  router.post("/bookings", (req, res, next) => {
+module.exports = {
+  createBooking: (req, res) => {
     for (const prop of requiredProps) {
       if (!req.body[prop]) {
         return res.status(400).send({
@@ -86,5 +86,5 @@ module.exports = (router) => {
     console.log(req.body);
 
     res.json({ statusCode: 200 });
-  });
+  },
 };

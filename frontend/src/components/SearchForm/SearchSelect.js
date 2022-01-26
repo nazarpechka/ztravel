@@ -27,9 +27,9 @@ const SearchSelect = ({
           value={value}
           onChange={onChange}
         >
-          {options.map(({ name, label }) => (
-            <option value={name} key={name ? name : "dummy"}>
-              {label}
+          {options.map(({ key, val }) => (
+            <option value={key} key={key ? key : "dummy"}>
+              {val}
             </option>
           ))}
         </select>

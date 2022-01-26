@@ -1,6 +1,6 @@
-const bookings = require("./bookings");
-const contacts = require("./contacts");
-const tours = require("./tours");
+const bookings = require("./bookings.route");
+const contacts = require("./contacts.route");
+const tours = require("./tours.route");
 
 module.exports = (router) => {
   bookings(router);

@@ -109,7 +109,9 @@ const BookingForm = () => {
         <Select
           label="Tour"
           name="tour"
-          options={tours}
+          options={tours.map(({ _id, name }) => {
+            return { key: _id, val: name };
+          })}
           value={info.tour}
           onChange={onChange}
         />
