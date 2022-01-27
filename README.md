@@ -8,4 +8,4 @@ Web application for a travel agency, aimed to help users book trips and learn mo
 ![image](https://user-images.githubusercontent.com/29672031/151391365-95c4feac-946f-48c9-ac9a-efb87d8822f4.png)
 ![image](https://user-images.githubusercontent.com/29672031/151391447-0b92c4fc-701e-4698-a095-2c1b4e162b97.png)
 ## Tech Stack
-Frontend is written in React with Express.js backend serving for user input validation.
+Frontend is written in React with Express.js backend serving REST API, which serves users, products, categories, shipping and payment methods and orders through mongoDB.
