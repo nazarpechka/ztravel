@@ -9,3 +9,7 @@ export const removeFromCart = (productId) => {
 export const setShippingMethod = (shippingId) => {
   return { type: "SET_SHIPPING_METHOD", payload: shippingId };
 };
+
+export const setPaymentMethod = (paymentId) => {
+  return { type: "SET_PAYMENT_METHOD", payload: paymentId };
+};

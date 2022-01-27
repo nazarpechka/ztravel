@@ -1,7 +1,10 @@
-const Button = ({ label, type, onClick, children }) => {
+const Button = ({ label, type, onClick, className, children }) => {
   return (
     <button
-      className="bg-secondary bg-opacity-90 py-2 px-10 rounded-lg hover:bg-opacity-100 hover:shadow-inner hover:scale-105 transition duration-150"
+      className={
+        "bg-secondary bg-opacity-90 py-2 px-10 rounded-lg hover:bg-opacity-100 hover:shadow-inner hover:scale-105 transition duration-150 " +
+        className
+      }
       type={type}
       onClick={onClick}
     >

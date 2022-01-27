@@ -11,6 +11,20 @@ module.exports = {
     });
   },
 
+  getShipping: (req, res) => {
+    Shipping.findById(req.params.id, (err, shipping) => {
+      if (err) {
+        return res.status(500).send(err);
+      }
+
+      if (!shipping) {
+        return res.status(404).send({ message: "No shipping found!" });
+      }
+
+      return res.send(shipping);
+    });
+  },
+
   getAllShippings: (req, res) => {
     Shipping.find({}, (err, shippings) => {
       if (err) {

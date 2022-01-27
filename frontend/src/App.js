@@ -4,6 +4,7 @@ import Booking from "./routes/Booking";
 import Shop from "./routes/Shop";
 import Cart from "./routes/Cart";
 import Checkout from "./routes/Checkout";
+import Payment from "./routes/Payment";
 import Footer from "./components/Footer";
 
 const App = () => {
@@ -20,6 +21,7 @@ const App = () => {
             </Route>
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<Checkout />} />
+            <Route path="/payment" element={<Payment />} />
           </Routes>
         </main>
         <Footer />

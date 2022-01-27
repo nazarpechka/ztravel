@@ -116,7 +116,7 @@ const ShoppingCart = () => {
                 value={cart.shipping._id}
                 onChange={(e) => dispatcher(setShippingMethod(e.target.value))}
               />
-              <div className="text-center uppercase">
+              <div className="text-center">
                 <NavLink to="/checkout">
                   <Button label="Checkout" />
                 </NavLink>
