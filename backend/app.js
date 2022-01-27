@@ -12,10 +12,10 @@ const setRoutes = require("./routes");
 const app = express();
 const router = express.Router();
 
-const PORT = process.env.PORT || 3005;
-const DB_URL = process.env.MONGO_URL;
+const PORT = process.env.PORT;
+const MONGO_URL = process.env.MONGO_URL;
 
-mongoose.connect(DB_URL);
+mongoose.connect(MONGO_URL);
 
 app.use(compression());
 app.use(helmet());
