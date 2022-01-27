@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 
-import { setShippingMethod } from "../../actions/cart";
+import { setShippingMethod } from "../../actions/order";
 
 import Select from "../Select";
 import Button from "../Button";
@@ -12,13 +12,13 @@ import Section from "../Section";
 
 const ShoppingCart = () => {
   const dispatcher = useDispatch();
-  const cart = useSelector((state) => state.cart);
+  const order = useSelector((state) => state.order);
   const [products, setProducts] = useState([]);
   const [shippings, setShippings] = useState([]);
 
   const fetchCartProducts = async () => {
     let fetchedProducts = [];
-    for (const [id, quantity] of Object.entries(cart.products)) {
+    for (const [id, quantity] of Object.entries(order.products)) {
       try {
         const response = await axios.get(`/api/products/${id}`);
         const product = await response.data;
@@ -44,7 +44,7 @@ const ShoppingCart = () => {
   useEffect(fetchShippings, []);
   useEffect(() => {
     fetchCartProducts();
-  }, [cart.products]);
+  }, [order.products]);
 
   return (
     <Section>
@@ -84,8 +84,9 @@ const ShoppingCart = () => {
                 <span>Shipping</span>
                 <span className="text-lg font-medium">
                   {
-                    shippings.find((shipping) => shipping._id === cart.shipping)
-                      .price
+                    shippings.find(
+                      (shipping) => shipping._id === order.shipping
+                    ).price
                   }{" "}
                   PLN
                 </span>
@@ -98,8 +99,9 @@ const ShoppingCart = () => {
                       (prev, curr) => prev + curr.price * curr.quantity,
                       0
                     ) +
-                    shippings.find((shipping) => shipping._id === cart.shipping)
-                      .price
+                    shippings.find(
+                      (shipping) => shipping._id === order.shipping
+                    ).price
                   ).toFixed(2)}{" "}
                   PLN
                 </span>
@@ -113,7 +115,7 @@ const ShoppingCart = () => {
                 options={shippings.map(({ name, _id }) => {
                   return { key: _id, val: name };
                 })}
-                value={cart.shipping._id}
+                value={order.shipping._id}
                 onChange={(e) => dispatcher(setShippingMethod(e.target.value))}
               />
               <div className="text-center">

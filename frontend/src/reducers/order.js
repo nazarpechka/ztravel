@@ -1,9 +1,9 @@
-const cartReducer = (
+const orderReducer = (
   state = { products: {}, shipping: "", payment: "" },
   action
 ) => {
   switch (action.type) {
-    case "ADD_TO_CART":
+    case "ADD_PRODUCT":
       return {
         ...state,
         products: {
@@ -14,7 +14,7 @@ const cartReducer = (
               : 1,
         },
       };
-    case "REMOVE_FROM_CART":
+    case "REMOVE_PRODUCT":
       if (state.products[action.payload] > 1) {
         return {
           ...state,
@@ -38,4 +38,4 @@ const cartReducer = (
   }
 };
 
-export default cartReducer;
+export default orderReducer;

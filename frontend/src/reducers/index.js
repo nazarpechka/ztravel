@@ -1,8 +1,8 @@
-import cartReducer from "./cart";
+import orderReducer from "./order";
 import { combineReducers } from "redux";
 
 const reducers = combineReducers({
-  cart: cartReducer,
+  order: orderReducer,
 });
 
 export default reducers;

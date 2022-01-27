@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { addToCart, removeFromCart } from "../../actions/cart";
+import { addProduct, removeProduct } from "../../actions/order";
 
 const minus = (
   <svg
@@ -48,14 +48,14 @@ const ProductRow = ({ product }) => {
 
       <div className="flex gap-2 items-center">
         <span
-          onClick={() => dispatcher(removeFromCart(_id))}
+          onClick={() => dispatcher(removeProduct(_id))}
           className="transition hover:cursor-pointer hover:scale-105"
         >
           {minus}
         </span>
         <span>{quantity}</span>
         <span
-          onClick={() => dispatcher(addToCart(_id))}
+          onClick={() => dispatcher(addProduct(_id))}
           className="transition hover:cursor-pointer hover:scale-105"
         >
           {plus}

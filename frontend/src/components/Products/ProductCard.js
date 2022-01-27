@@ -1,7 +1,7 @@
 import Button from "../Button";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../../actions/cart";
+import { addProduct } from "../../actions/order";
 
 const checkbox = (
   <svg
@@ -23,9 +23,8 @@ const ProductCard = ({ product }) => {
   const img = require(`../assets/${imageName}.jpg`);
 
   const dispatcher = useDispatch();
-  const cart = useSelector((state) => state.cart);
-  console.log(cart);
-  const [addedToCart, setAddedToCart] = useState(_id in cart.products);
+  const order = useSelector((state) => state.order);
+  const [addedToCart, setAddedToCart] = useState(_id in order.products);
 
   return (
     <div className="w-64 h-96 rounded-md shadow-lg overflow-hidden relative">
@@ -37,7 +36,7 @@ const ProductCard = ({ product }) => {
           label={addedToCart ? "Added" : "Add to cart"}
           onClick={() => {
             setAddedToCart(true);
-            dispatcher(addToCart(_id));
+            dispatcher(addProduct(_id));
           }}
         >
           {addedToCart && checkbox}
