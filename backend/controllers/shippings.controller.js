@@ -1,4 +1,4 @@
-const Shipping = require("../models/Shipping");
+const Shipping = require("../models/shipping");
 
 module.exports = {
   createShipping: (req, res) => {

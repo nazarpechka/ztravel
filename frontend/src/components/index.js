@@ -23,8 +23,6 @@ const Checkout = () => {
     street: "",
     postalCode: "",
   });
-  const [user, setUser] = useState();
-  const [loginView, setLoginView] = useState(true);
 
   const fetchPayments = () => {
     axios
@@ -46,14 +44,10 @@ const Checkout = () => {
 
   const sendOrder = (e) => {
     e.preventDefault();
-    if (!user) {
-      return;
-    }
     const preparedOrder = {
       products: order.products.map((product) => product._id),
       shipping: order.shipping._id,
       payment: order.payment._id,
-      user,
       ...adress,
     };
 
@@ -61,14 +55,6 @@ const Checkout = () => {
       .post("/api/orders", preparedOrder)
       .then(({ data }) => navigate("/payment"))
       .catch((err) => console.error(err));
-  };
-
-  const onChangeView = () => {
-    setLoginView(!loginView);
-  };
-
-  const onLogin = (user) => {
-    setUser(user._id);
   };
 
   useEffect(fetchPayments, []);
@@ -94,11 +80,8 @@ const Checkout = () => {
                 <h4 className="text-2xl mt-2">
                   To proceed, please log in or register
                 </h4>
-                {loginView ? (
-                  <LoginForm onChangeView={onChangeView} onLogin={onLogin} />
-                ) : (
-                  <RegisterForm onChangeView={onChangeView} />
-                )}
+                <RegisterForm />
+                <LoginForm />
               </div>
               <div>
                 <h4 className="text-2xl mt-2">Shipping information</h4>

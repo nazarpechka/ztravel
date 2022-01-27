@@ -6,6 +6,7 @@ module.exports = {
       .populate("products")
       .populate("shipping")
       .populate("payment")
+      .populate("user")
       .exec((err, orders) => {
         if (err) {
           return res.status(500).send(err);

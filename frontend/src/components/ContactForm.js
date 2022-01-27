@@ -28,7 +28,6 @@ const ContactForm = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     const error = document.querySelector("#contact-error");
-    console.log(error);
     const success = document.querySelector("#contact-success");
 
     axios
@@ -38,7 +37,6 @@ const ContactForm = () => {
         success.textContent = "We will reach you soon!";
       })
       .catch((err) => {
-        console.log("got error");
         success.textContent = "";
         error.textContent = err.response
           ? err.response.data.message

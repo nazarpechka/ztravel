@@ -24,7 +24,6 @@ const ProductCard = ({ product }) => {
 
   const dispatcher = useDispatch();
   const order = useSelector((state) => state.order);
-  console.log(order);
   const [addedToCart, setAddedToCart] = useState(
     order.products.includes(product)
   );

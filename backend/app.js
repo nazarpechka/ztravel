@@ -4,6 +4,7 @@ const compression = require("compression");
 const mongoose = require("mongoose");
 const path = require("path");
 require("dotenv").config();
+// require("./passport"); TODO
 const logger = require("morgan");
 const debug = require("debug")("backend");
 const setRoutes = require("./routes");
@@ -19,7 +20,6 @@ mongoose.connect(DB_URL);
 app.use(compression());
 app.use(helmet());
 app.use(logger("dev"));
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 

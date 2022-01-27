@@ -38,7 +38,6 @@ module.exports = {
   },
 
   replaceProduct: (req, res) => {
-    console.log(req.body);
     Product.findOneAndReplace(
       { _id: req.params.id },
       req.body,

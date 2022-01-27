@@ -6,6 +6,7 @@ const categories = require("./categories.route");
 const shippings = require("./shippings.route");
 const payments = require("./payments.route");
 const orders = require("./orders.route");
+const auth = require("./auth.route");
 
 module.exports = (router) => {
   bookings(router);
@@ -16,6 +17,7 @@ module.exports = (router) => {
   shippings(router);
   payments(router);
   orders(router);
+  auth(router);
 
   return router;
 };

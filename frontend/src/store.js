@@ -16,6 +16,6 @@ store.subscribe(() => {
 });
 
 store.subscribe(() => {
-  console.log("state", store.getState());
+  console.log("Store state", store.getState());
 });
 export default store;

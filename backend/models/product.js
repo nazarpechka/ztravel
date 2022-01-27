@@ -6,6 +6,7 @@ const productSchema = new mongoose.Schema({
     required: true,
     unique: true,
     minLength: 3,
+    trim: true,
   },
   price: {
     type: Number,
@@ -18,6 +19,7 @@ const productSchema = new mongoose.Schema({
   },
   imageName: {
     type: String,
+    trim: true,
   },
 });
 
