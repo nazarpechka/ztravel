@@ -13,69 +13,33 @@ import Button from "../Button";
 const Checkout = () => {
   const dispatcher = useDispatch();
   const order = useSelector((state) => state.order);
-  const [products, setProducts] = useState([]);
   const [payments, setPayments] = useState([]);
-  const [payment, setPayment] = useState();
-  const [shipping, setShipping] = useState();
-
-  const fetchCartProducts = async () => {
-    let fetchedProducts = [];
-    for (const [id, quantity] of Object.entries(order.products)) {
-      try {
-        const response = await axios.get(`/api/products/${id}`);
-        const product = await response.data;
-
-        fetchedProducts.push({ ...product, quantity });
-      } catch (err) {
-        console.err(err);
-      }
-    }
-    setProducts(fetchedProducts);
-  };
 
   const fetchPayments = () => {
     axios
       .get("/api/payments")
       .then(({ data }) => {
         setPayments(data);
-        dispatcher(setPaymentMethod(data[0]._id));
+        dispatcher(setPaymentMethod(data[0]));
       })
-      .catch((err) => console.err(err));
-  };
-
-  const fetchShipping = () => {
-    axios
-      .get(`/api/shippings/${order.shipping}`)
-      .then(({ data }) => setShipping(data))
-      .catch((err) => console.err(err));
+      .catch((err) => console.error(err));
   };
 
   useEffect(fetchPayments, []);
-  useEffect(() => {
-    setPayment(payments.find((payment) => payment._id === order.payment));
-  }, [payments, order.payment]);
-  useEffect(() => {
-    fetchCartProducts();
-  }, [order.products]);
-  useEffect(fetchShipping, []);
 
-  if (!payment) {
-    return null;
-  }
-
-  const productsAmount = products.reduce(
+  const productsAmount = order.products.reduce(
     (prev, curr) => prev + curr.quantity,
     0
   );
-  const totalProducts = products.reduce(
+  const totalProducts = order.products.reduce(
     (prev, curr) => prev + curr.price * curr.quantity,
     0
   );
-  const paymentFee = (totalProducts * payment.fee) / 100;
+  const paymentFee = (totalProducts * order.payment.fee) / 100;
 
   return (
     <Section>
-      {products.length && payment ? (
+      {order.products.length && order.payment ? (
         <div className="w-full flex">
           <div className="w-3/4">
             <h3 className="text-3xl font-medium">Order Details</h3>
@@ -112,7 +76,7 @@ const Checkout = () => {
               <div className="flex items-center justify-between">
                 <span>Shipping</span>
                 <span className="text-lg font-medium">
-                  {shipping.price.toFixed(2)} PLN
+                  {order.shipping.price.toFixed(2)} PLN
                 </span>
               </div>
               <div className="flex items-center justify-between">
@@ -124,7 +88,10 @@ const Checkout = () => {
               <div className="flex items-center justify-between">
                 <span>Total</span>
                 <span className="text-lg font-bold">
-                  {(totalProducts + shipping.price + paymentFee).toFixed(2)} PLN
+                  {(totalProducts + order.shipping.price + paymentFee).toFixed(
+                    2
+                  )}{" "}
+                  PLN
                 </span>
               </div>
             </div>
@@ -137,7 +104,13 @@ const Checkout = () => {
                   return { key: _id, val: name };
                 })}
                 value={order.payment._id}
-                onChange={(e) => dispatcher(setPaymentMethod(e.target.value))}
+                onChange={(e) =>
+                  dispatcher(
+                    setPaymentMethod(
+                      payments.find((payment) => payment._id === e.target.value)
+                    )
+                  )
+                }
               />
               <div className="text-center">
                 <NavLink to="/payment">

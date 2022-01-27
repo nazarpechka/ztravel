@@ -15,4 +15,7 @@ store.subscribe(() => {
   localStorage.setItem("store", JSON.stringify(store.getState()));
 });
 
+store.subscribe(() => {
+  console.log("state", store.getState());
+});
 export default store;

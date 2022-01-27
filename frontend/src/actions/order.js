@@ -13,3 +13,7 @@ export const setShippingMethod = (shippingId) => {
 export const setPaymentMethod = (paymentId) => {
   return { type: "SET_PAYMENT_METHOD", payload: paymentId };
 };
+
+export const resetOrder = () => {
+  return { type: "RESET_ORDER" };
+};

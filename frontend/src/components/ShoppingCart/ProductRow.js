@@ -33,7 +33,7 @@ const plus = (
 
 const ProductRow = ({ product }) => {
   const dispatcher = useDispatch();
-  const { imageName, name, quantity, price, _id } = product;
+  const { imageName, name, quantity, price } = product;
 
   return product ? (
     <div className="grid grid-cols-4 items-center gap-6 py-5 text-lg">
@@ -48,14 +48,14 @@ const ProductRow = ({ product }) => {
 
       <div className="flex gap-2 items-center">
         <span
-          onClick={() => dispatcher(removeProduct(_id))}
+          onClick={() => dispatcher(removeProduct(product))}
           className="transition hover:cursor-pointer hover:scale-105"
         >
           {minus}
         </span>
         <span>{quantity}</span>
         <span
-          onClick={() => dispatcher(addProduct(_id))}
+          onClick={() => dispatcher(addProduct(product))}
           className="transition hover:cursor-pointer hover:scale-105"
         >
           {plus}

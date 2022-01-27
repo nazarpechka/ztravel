@@ -13,42 +13,23 @@ import Section from "../Section";
 const ShoppingCart = () => {
   const dispatcher = useDispatch();
   const order = useSelector((state) => state.order);
-  const [products, setProducts] = useState([]);
   const [shippings, setShippings] = useState([]);
-
-  const fetchCartProducts = async () => {
-    let fetchedProducts = [];
-    for (const [id, quantity] of Object.entries(order.products)) {
-      try {
-        const response = await axios.get(`/api/products/${id}`);
-        const product = await response.data;
-
-        fetchedProducts.push({ ...product, quantity });
-      } catch (err) {
-        console.err(err);
-      }
-    }
-    setProducts(fetchedProducts);
-  };
 
   const fetchShippings = () => {
     axios
       .get("/api/shippings")
       .then(({ data }) => {
         setShippings(data);
-        dispatcher(setShippingMethod(data[0]._id));
+        dispatcher(setShippingMethod(data[0]));
       })
-      .catch((err) => console.err(err));
+      .catch((err) => console.error(err));
   };
 
   useEffect(fetchShippings, []);
-  useEffect(() => {
-    fetchCartProducts();
-  }, [order.products]);
 
   return (
     <Section>
-      {products.length ? (
+      {order.products.length ? (
         <div className="w-full flex">
           <div className="w-3/4">
             <h3 className="text-3xl font-medium">Shopping Cart</h3>
@@ -58,7 +39,7 @@ const ShoppingCart = () => {
               <span>Price</span>
               <span>Total</span>
             </div>
-            {products.map((product) => (
+            {order.products.map((product) => (
               <ProductRow key={product._id} product={product} />
             ))}
           </div>
@@ -67,11 +48,14 @@ const ShoppingCart = () => {
               <h3 className="text-2xl">Order Summary</h3>
               <div className="flex items-center justify-between">
                 <span>
-                  {products.reduce((prev, curr) => prev + curr.quantity, 0)}{" "}
+                  {order.products.reduce(
+                    (prev, curr) => prev + curr.quantity,
+                    0
+                  )}{" "}
                   Products
                 </span>
                 <span className="text-lg font-medium">
-                  {products
+                  {order.products
                     .reduce(
                       (prev, curr) => prev + curr.price * curr.quantity,
                       0
@@ -83,25 +67,17 @@ const ShoppingCart = () => {
               <div className="flex items-center justify-between">
                 <span>Shipping</span>
                 <span className="text-lg font-medium">
-                  {
-                    shippings.find(
-                      (shipping) => shipping._id === order.shipping
-                    ).price
-                  }{" "}
-                  PLN
+                  {order.shipping.price} PLN
                 </span>
               </div>
               <div className="flex items-center justify-between">
                 <span>Total</span>
                 <span className="text-lg font-medium">
                   {(
-                    products.reduce(
+                    order.products.reduce(
                       (prev, curr) => prev + curr.price * curr.quantity,
                       0
-                    ) +
-                    shippings.find(
-                      (shipping) => shipping._id === order.shipping
-                    ).price
+                    ) + order.shipping.price
                   ).toFixed(2)}{" "}
                   PLN
                 </span>
@@ -116,7 +92,15 @@ const ShoppingCart = () => {
                   return { key: _id, val: name };
                 })}
                 value={order.shipping._id}
-                onChange={(e) => dispatcher(setShippingMethod(e.target.value))}
+                onChange={(e) =>
+                  dispatcher(
+                    setShippingMethod(
+                      shippings.find(
+                        (shipping) => shipping._id === e.target.value
+                      )
+                    )
+                  )
+                }
               />
               <div className="text-center">
                 <NavLink to="/checkout">

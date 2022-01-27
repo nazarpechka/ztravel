@@ -19,12 +19,15 @@ const checkbox = (
 );
 
 const ProductCard = ({ product }) => {
-  const { name, price, imageName, _id } = product;
+  const { name, price, imageName } = product;
   const img = require(`../assets/${imageName}.jpg`);
 
   const dispatcher = useDispatch();
   const order = useSelector((state) => state.order);
-  const [addedToCart, setAddedToCart] = useState(_id in order.products);
+  console.log(order);
+  const [addedToCart, setAddedToCart] = useState(
+    order.products.includes(product)
+  );
 
   return (
     <div className="w-64 h-96 rounded-md shadow-lg overflow-hidden relative">
@@ -36,7 +39,7 @@ const ProductCard = ({ product }) => {
           label={addedToCart ? "Added" : "Add to cart"}
           onClick={() => {
             setAddedToCart(true);
-            dispatcher(addProduct(_id));
+            dispatcher(addProduct(product));
           }}
         >
           {addedToCart && checkbox}

@@ -22,14 +22,14 @@ const Products = () => {
         }
         setProducts(products);
       })
-      .catch((err) => console.err(err));
+      .catch((err) => console.error(err));
   };
 
   const fetchCategories = () => {
     axios
       .get("/api/categories")
       .then(({ data }) => setCategories(data))
-      .catch((err) => console.err(err));
+      .catch((err) => console.error(err));
   };
 
   useEffect(fetchCategories, []);
