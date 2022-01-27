@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import { setPaymentMethod } from "../../actions/order";
@@ -12,8 +12,14 @@ import Button from "../Button";
 
 const Checkout = () => {
   const dispatcher = useDispatch();
+  const navigate = useNavigate();
   const order = useSelector((state) => state.order);
   const [payments, setPayments] = useState([]);
+  const [adress, setAdress] = useState({
+    city: "",
+    street: "",
+    postalCode: "",
+  });
 
   const fetchPayments = () => {
     axios
@@ -21,6 +27,32 @@ const Checkout = () => {
       .then(({ data }) => {
         setPayments(data);
         dispatcher(setPaymentMethod(data[0]));
+      })
+      .catch((err) => console.error(err));
+  };
+
+  const onAdressChange = (e) => {
+    const target = e.target;
+    setAdress({
+      ...adress,
+      [target.name]: target.value,
+    });
+  };
+
+  const sendOrder = (e) => {
+    e.preventDefault();
+    const preparedOrder = {
+      products: order.products.map((product) => product._id),
+      shipping: order.shipping._id,
+      payment: order.payment._id,
+      ...adress,
+    };
+
+    axios
+      .post("/api/orders", preparedOrder)
+      .then(({ data }) => {
+        console.log("accepted order", data);
+        navigate("/payment");
       })
       .catch((err) => console.error(err));
   };
@@ -57,9 +89,27 @@ const Checkout = () => {
               <div>
                 <h4 className="text-2xl mt-2">Shipping information</h4>
                 <form className="">
-                  <Input label="City" name="city" type="text" />
-                  <Input label="Street" name="street" type="text" />
-                  <Input label="Post code" name="post" type="number" />
+                  <Input
+                    label="City"
+                    name="city"
+                    type="text"
+                    value={adress.city}
+                    onChange={onAdressChange}
+                  />
+                  <Input
+                    label="Street"
+                    name="street"
+                    type="text"
+                    value={adress.street}
+                    onChange={onAdressChange}
+                  />
+                  <Input
+                    label="Post code"
+                    name="postalCode"
+                    type="number"
+                    value={adress.postalCode}
+                    onChange={onAdressChange}
+                  />
                 </form>
               </div>
             </div>
@@ -113,9 +163,7 @@ const Checkout = () => {
                 }
               />
               <div className="text-center">
-                <NavLink to="/payment">
-                  <Button label="Purchase" />
-                </NavLink>
+                <Button onClick={sendOrder} label="Purchase" />
               </div>
             </form>
           </div>
