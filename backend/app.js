@@ -1,6 +1,9 @@
 const express = require("express");
+const helmet = require("helmet");
+const compression = require("compression");
 const mongoose = require("mongoose");
 const path = require("path");
+require("dotenv").config();
 const logger = require("morgan");
 const debug = require("debug")("backend");
 const setRoutes = require("./routes");
@@ -9,11 +12,12 @@ const app = express();
 const router = express.Router();
 
 const PORT = process.env.PORT || 3005;
-const DB_URL =
-  "mongodb+srv://ztravel:123@cluster0.ze1kc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const DB_URL = process.env.MONGO_URL;
 
 mongoose.connect(DB_URL);
 
+app.use(compression());
+app.use(helmet());
 app.use(logger("dev"));
 
 app.use(express.json());

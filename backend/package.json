@@ -7,8 +7,11 @@
     "dev": "DEBUG=backend nodemon app.js"
   },
   "dependencies": {
+    "compression": "^1.7.4",
     "debug": "~2.6.9",
+    "dotenv": "^14.3.2",
     "express": "~4.16.1",
+    "helmet": "^5.0.2",
     "mongoose": "^6.1.8",
     "morgan": "~1.9.1"
   },
