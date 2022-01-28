@@ -1,58 +1,37 @@
 const Category = require("../models/category");
 const Product = require("../models/product");
 
+const { NotFoundError } = require("../utils/errors");
+
 module.exports = {
-  getAllCategories: (req, res) => {
-    Category.find({}, (err, categories) => {
-      if (err) {
-        return res.status(500).send(err);
-      }
-
-      return res.send(categories);
-    });
+  getAllCategories: async (req, res, next) => {
+    const categories = await Category.find().catch(next);
+    res.send(categories);
   },
 
-  createCategory: (req, res) => {
-    Category.create(req.body, (err, category) => {
-      if (err) {
-        return res.status(500).send(err);
-      }
-
-      return res.send(category);
-    });
+  createCategory: async (req, res, next) => {
+    const category = await Category.create(req.body).catch(next);
+    res.send(category);
   },
 
-  getCategory: (req, res) => {
-    Category.findById(req.params.id, (err, category) => {
-      if (err) {
-        return res.status(500).send(err);
-      }
+  getCategory: async (req, res, next) => {
+    const category = await Category.findById(req.params.id).catch(next);
 
-      if (!category) {
-        return res.status(404).send({ message: "Category not found!" });
-      }
+    if (!category) {
+      return next(new NotFoundError("Category not found!"));
+    }
 
-      return res.send(category);
-    });
+    res.send(category);
   },
 
-  getCategoryProducts: (req, res) => {
-    Category.findById(req.params.id, (err, category) => {
-      if (err) {
-        return res.status(500).send(err);
-      }
+  getCategoryProducts: async (req, res, next) => {
+    const category = await Category.findById(req.params.id).catch(next);
 
-      if (!category) {
-        return res.status(404).send({ message: "Category not found!" });
-      }
+    if (!category) {
+      return next(new NotFoundError("Category not found!"));
+    }
 
-      Product.find({ category }, (err, products) => {
-        if (err) {
-          return res.status(500).send(err);
-        }
-
-        return res.send(products);
-      });
-    });
+    const products = await Product.find({ category }).catch(next);
+    res.send(products);
   },
 };

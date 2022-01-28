@@ -1,54 +1,34 @@
 const Product = require("../models/product");
 
+const { NotFoundError } = require("../utils/errors");
+
 module.exports = {
-  getAllProducts: (req, res) => {
-    Product.find({})
-      .populate("category")
-      .exec((err, products) => {
-        if (err) {
-          return res.status(500).send(err);
-        }
-
-        return res.send(products);
-      });
+  getAllProducts: async (req, res, next) => {
+    const products = await Product.find().populate("category").catch(next);
+    res.send(products);
   },
 
-  createProduct: (req, res) => {
-    Product.create(req.body, (err, product) => {
-      if (err) {
-        return res.status(500).send(err);
-      }
-
-      return res.send(product);
-    });
+  createProduct: async (req, res, next) => {
+    const product = await Product.create(req.body).catch(next);
+    res.send(product);
   },
 
-  getProduct: (req, res) => {
-    Product.findById(req.params.id, (err, product) => {
-      if (err) {
-        return res.status(500).send(err);
-      }
+  getProduct: async (req, res, next) => {
+    const product = await Product.findById(req.params.id).catch(next);
 
-      if (!product) {
-        return res.status(404).send({ message: "Category not found!" });
-      }
+    if (!product) {
+      return next(new NotFoundError("Product not found!"));
+    }
 
-      return res.send(product);
-    });
+    res.send(product);
   },
 
-  replaceProduct: (req, res) => {
-    Product.findOneAndReplace(
+  replaceProduct: async (req, res, next) => {
+    const product = await Product.findOneAndReplace(
       { _id: req.params.id },
       req.body,
-      null,
-      (err, product) => {
-        if (err) {
-          return res.status(500).send(err);
-        }
-
-        return res.send(product);
-      }
-    );
+      null
+    ).catch(next);
+    res.send(product);
   },
 };

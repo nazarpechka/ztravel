@@ -1,21 +1,15 @@
 const Tour = require("../models/tour");
 
+const { NotFoundError } = require("../utils/errors");
+
 module.exports = {
-  createTour: (req, res) => {
-    Tour.create(req.body, (err, tour) => {
-      if (err) {
-        return res.status(500).send(err);
-      }
-      return res.send(tour);
-    });
+  createTour: async (req, res, next) => {
+    const tour = await Tour.create(req.body).catch(next);
+    res.send(tour);
   },
 
-  getAllTours: (req, res) => {
-    Tour.find({}, (err, tours) => {
-      if (err) {
-        return res.status(500).send(err);
-      }
-      return res.send(tours);
-    });
+  getAllTours: async (req, res, next) => {
+    const tours = await Tour.find().catch(next);
+    res.send(tours);
   },
 };

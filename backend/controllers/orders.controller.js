@@ -1,28 +1,18 @@
 const Order = require("../models/order");
 
 module.exports = {
-  getAllOrders: (req, res) => {
-    Order.find({})
+  getAllOrders: async (req, res, next) => {
+    const orders = await Order.find()
       .populate("products")
       .populate("shipping")
       .populate("payment")
       .populate("user")
-      .exec((err, orders) => {
-        if (err) {
-          return res.status(500).send(err);
-        }
-
-        return res.send(orders);
-      });
+      .catch(next);
+    res.send(orders);
   },
 
-  createOrder: (req, res) => {
-    Order.create(req.body, (err, order) => {
-      if (err) {
-        return res.status(500).send(err);
-      }
-
-      return res.send(order);
-    });
+  createOrder: async (req, res, next) => {
+    const order = await Order.create(req.body).catch(next);
+    res.send(order);
   },
 };

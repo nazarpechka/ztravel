@@ -1,29 +1,32 @@
 const express = require("express");
 const helmet = require("helmet");
 const compression = require("compression");
+const cors = require("cors");
 const mongoose = require("mongoose");
 const path = require("path");
-require("dotenv").config();
-// require("./passport"); TODO
 const logger = require("morgan");
 const debug = require("debug")("backend");
+require("dotenv").config();
+require("./config/passport");
+require("./config/db");
+
+const errorHandler = require("./middleware/errorHandler");
 const setRoutes = require("./routes");
 
 const app = express();
 const router = express.Router();
 
 const PORT = process.env.PORT;
-const MONGO_URL = process.env.MONGO_URL;
-
-mongoose.connect(MONGO_URL);
 
 app.use(compression());
 app.use(helmet());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cors());
 
 app.use("/api", setRoutes(router));
+app.use("/api", errorHandler);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/build/")));

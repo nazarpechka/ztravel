@@ -1,37 +1,25 @@
 const Shipping = require("../models/shipping");
 
+const { NotFoundError } = require("../utils/errors");
+
 module.exports = {
-  createShipping: (req, res) => {
-    Shipping.create(req.body, (err, shipping) => {
-      if (err) {
-        return res.status(500).send(err);
-      }
-
-      return res.send(shipping);
-    });
+  createShipping: async (req, res, next) => {
+    const shipping = await Shipping.create(req.body).catch(next);
+    res.send(shipping);
   },
 
-  getShipping: (req, res) => {
-    Shipping.findById(req.params.id, (err, shipping) => {
-      if (err) {
-        return res.status(500).send(err);
-      }
+  getShipping: async (req, res, next) => {
+    const shipping = await Shipping.findById(req.params.id).catch(next);
 
-      if (!shipping) {
-        return res.status(404).send({ message: "No shipping found!" });
-      }
+    if (!shipping) {
+      return next(new NotFoundError("Shipping not found!"));
+    }
 
-      return res.send(shipping);
-    });
+    res.send(shipping);
   },
 
-  getAllShippings: (req, res) => {
-    Shipping.find({}, (err, shippings) => {
-      if (err) {
-        return res.status(500).send(err);
-      }
-
-      return res.send(shippings);
-    });
+  getAllShippings: async (req, res, next) => {
+    const shippings = await Shipping.find().catch(next);
+    res.send(shippings);
   },
 };

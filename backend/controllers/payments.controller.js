@@ -1,37 +1,23 @@
 const Payment = require("../models/payment");
 
+const { NotFoundError } = require("../utils/errors");
+
 module.exports = {
-  createPayment: (req, res) => {
-    Payment.create(req.body, (err, payment) => {
-      if (err) {
-        return res.status(500).send(err);
-      }
-
-      return res.send(payment);
-    });
+  createPayment: async (req, res, next) => {
+    const payment = await Payment.create(req.body).catch(next);
+    res.send(payment);
   },
 
-  getPayment: (req, res) => {
-    Payment.findById(req.params.id, (err, payment) => {
-      if (err) {
-        return res.status(500).send(err);
-      }
-
-      if (!payment) {
-        return res.status(404).send({ message: "No payment found!" });
-      }
-
-      return res.send(payment);
-    });
+  getPayment: async (req, res, next) => {
+    const payment = await Payment.findById(req.params.id).catch(next);
+    if (!paymnet) {
+      return next(new NotFoundError("Payment not found!"));
+    }
+    res.send(payment);
   },
 
-  getAllPayments: (req, res) => {
-    Payment.find({}, (err, payments) => {
-      if (err) {
-        return res.status(500).send(err);
-      }
-
-      return res.send(payments);
-    });
+  getAllPayments: async (req, res, next) => {
+    const payments = await Payment.find().catch(next);
+    res.send(payments);
   },
 };
